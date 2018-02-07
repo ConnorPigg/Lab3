@@ -17,6 +17,8 @@ public class WebScrape {
         + countWords(bls) + " nws " + countWords(nws) );
     System.out.println("Count of prince in hamlet: "
         + countWord(hamlet, "prince"));
+    System.out.println("Number of unique words in hamlet "
+        + countUnique(hamlet));
   }
   /**
    * This finds word count of a doc pointed by supplied url.
@@ -47,6 +49,25 @@ public class WebScrape {
       }
     }
     return count;
+  }
+  /**
+   * Find number of unique words.
+   *
+   * @param url txt source for processing
+   * @return number of unique words
+   */
+  public static int countUnique(String url) {
+    String content = urlToString(url);
+    String[] words = content.split("\\s+");
+    int uniq = 0;
+    String knownWords = "";
+    for (String word : words) {
+      if (!knownWords.contains(word.toLowerCase())) {
+        uniq++;
+        knownWords += word;
+      }
+    }
+    return uniq;
   }
   /**
    * Retrieve contents from a URL and return them as a string.
